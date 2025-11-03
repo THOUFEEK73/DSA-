@@ -41,6 +41,13 @@ class BinaryTree{
         }
     }
 
+     //  1
+    // / \
+   // 2   3
+  // / \
+ // 4   5
+
+
 
         delete(root,value){
             if(!root) return null;
@@ -63,31 +70,36 @@ class BinaryTree{
             nodeToDelete.value = lastNode.value;
 
             this.removeDeepest(root,lastNode);
+            return root;
         }
 
-        removeDeepest(root,node){
-             if(!root) return null;
-             
-             if(root === node) return null;
-
-             if(root.left){
-                if(root.left===node){
-                    root.left = null;
-                    return
-                }else{
-                    this.removeDeepest(root.left,node);
+        removeDeepest(root, node) {
+            if (!root) return;
+        
+            let queue = [root];
+            while (queue.length) {
+                let current = queue.shift();
+        
+                if (current.left) {
+                    if (current.left === node) {
+                        current.left = null;
+                        return;
+                    } else {
+                        queue.push(current.left);
+                    }
                 }
-             }
-
-             if(root.right){
-                if(root.right===node){
-                    root.right = null;
-                    return
-                }else{
-                    this.removeDeepest(root.right,node);
+        
+                if (current.right) {
+                    if (current.right === node) {
+                        current.right = null;
+                        return;
+                    } else {
+                        queue.push(current.right);
+                    }
                 }
-             }
+            }
         }
+        
 
 
     InOrder(root){
